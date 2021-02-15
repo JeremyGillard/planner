@@ -27,6 +27,7 @@ export default function HabitTrackerHeader({ handleHabitAddition }) {
       <div>
         <h2>Sunday</h2>
       </div>
+      <div></div>
     </React.Fragment>
   );
 }

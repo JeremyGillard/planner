@@ -5,6 +5,7 @@ export default function HabitTrackerAdder({
   habit,
   handleChangeHabitName,
   handleChangeHabitDays,
+  handleValidate,
 }) {
   return (
     <React.Fragment>
@@ -43,6 +44,9 @@ export default function HabitTrackerAdder({
         className={habit.days[6] ? "colored" : ""}
         onClick={() => handleChangeHabitDays(6)}
       ></div>
+      <div>
+        <button onClick={handleValidate}>Validate</button>
+      </div>
     </React.Fragment>
   );
 }

@@ -19,6 +19,9 @@ export default function HabitTrackerRow({ habit }) {
         <h2>{habit.name}</h2>
       </div>
       {habit.days.map((day, i) => renderDay(day, i))}
+      <div>
+        <input type="checkbox" name="sunday" id="sunday" />
+      </div>
     </React.Fragment>
   );
 }

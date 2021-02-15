@@ -9,50 +9,60 @@ export default function HabitTracker() {
     {
       name: "Meditation",
       days: [false, true, false, true, false, false, true],
+      validate: false,
     },
   ]);
+  const [habitAddition, setHabitAddition] = useState(false);
+  const [habit, setHabit] = useState({
+    name: "",
+    days: [false, false, false, false, false, false, false],
+  });
 
   const handleHabitAddition = () => {
-    console.log("Addition");
-    setHabits([
-      ...habits,
-      { name: "", days: [false, false, false, false, false, false, false] },
-    ]);
+    setHabitAddition(true);
   };
 
   const handleChangeHabitName = (e) => {
-    const newHabits = [...habits];
-    newHabits[habits.length - 1] = {
-      name: e.target.value,
-      days: habits[habits.length - 1].days,
-    };
-    setHabits(newHabits);
+    const newHabit = { ...habit };
+    newHabit.name = e.target.value;
+    setHabit(newHabit);
   };
 
   const handleChangeHabitDays = (index) => {
-    const newHabits = [...habits];
-    const newDays = [...habits[habits.length - 1].days];
-    console.log(index);
+    const newHabit = { ...habit };
+    const newDays = [...newHabit.days];
     newDays[index] = !newDays[index];
-    newHabits[habits.length - 1] = {
-      name: habits[habits.length - 1].name,
-      days: newDays,
-    };
-    setHabits(newHabits);
+    newHabit.days = newDays;
+    setHabit(newHabit);
+  };
+
+  const handleValidate = () => {
+    setHabits([...habits, habit]);
+    setHabit({
+      name: "",
+      days: [false, false, false, false, false, false, false],
+    });
+  };
+
+  const renderNewHabit = () => {
+    return (
+      <HabitTrackerAdder
+        habit={habit}
+        handleChangeHabitName={handleChangeHabitName}
+        handleChangeHabitDays={handleChangeHabitDays}
+        handleValidate={handleValidate}
+      />
+    );
   };
 
   return (
     <div>
       <div className="grid-container">
         <HabitTrackerHeader handleHabitAddition={handleHabitAddition} />
-        <HabitTrackerAdder
-          habit={habits[habits.length - 1]}
-          handleChangeHabitName={handleChangeHabitName}
-          handleChangeHabitDays={handleChangeHabitDays}
-        />
         {habits.map((habit) => (
           <HabitTrackerRow key={habit.name} habit={habit} />
         ))}
+        {habitAddition ? renderNewHabit() : null}
       </div>
     </div>
   );
