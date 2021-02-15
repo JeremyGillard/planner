@@ -1,16 +1,32 @@
-import React, { useState } from "react";
-import "./HabitTracker.scss";
+import React, { useEffect, useState } from "react";
 import HabitTrackerAdder from "./HabitTrackerAdder";
 import HabitTrackerHeader from "./HabitTrackerHeader";
 import HabitTrackerRow from "./HabitTrackerRow";
+import dayjs from "dayjs";
+import _ from "lodash";
+import "./HabitTracker.scss";
+
+function getDateOperands() {
+  let currentDay = dayjs().add(-1, "day").format("d");
+  return _.range(-currentDay, 7 - currentDay);
+}
+
+function getDatesOfWeek() {
+  return getDateOperands().map((operande) => dayjs().add(operande, "day"));
+}
 
 export default function HabitTracker() {
+  const [days, setDays] = useState([]);
   const [habits, setHabits] = useState([]);
   const [habitAddition, setHabitAddition] = useState(false);
   const [habit, setHabit] = useState({
     name: "",
     days: [false, false, false, false, false, false, false],
   });
+
+  useEffect(() => {
+    setDays(getDatesOfWeek());
+  }, []);
 
   const handleHabitAddition = () => {
     setHabitAddition(true);
@@ -53,7 +69,10 @@ export default function HabitTracker() {
   return (
     <div>
       <div className="grid-container">
-        <HabitTrackerHeader handleHabitAddition={handleHabitAddition} />
+        <HabitTrackerHeader
+          days={days}
+          handleHabitAddition={handleHabitAddition}
+        />
         {habits.map((habit) => (
           <HabitTrackerRow key={habit.name} habit={habit} />
         ))}
