@@ -1,4 +1,8 @@
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(8, 1fr);
+
+  div {
+    border: solid 1px black;
+  }
 }
