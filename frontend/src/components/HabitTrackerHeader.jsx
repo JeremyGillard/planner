@@ -4,7 +4,7 @@ export default function HabitTrackerHeader({ handleHabitAddition }) {
   return (
     <React.Fragment>
       <div>
-        <button onClick={handleHabitAddition}>+</button>
+        <button onClick={handleHabitAddition}>New Habit</button>
       </div>
       <div>
         <h2>Monday</h2>

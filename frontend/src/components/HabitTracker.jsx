@@ -5,13 +5,7 @@ import HabitTrackerHeader from "./HabitTrackerHeader";
 import HabitTrackerRow from "./HabitTrackerRow";
 
 export default function HabitTracker() {
-  const [habits, setHabits] = useState([
-    {
-      name: "Meditation",
-      days: [false, true, false, true, false, false, true],
-      validate: false,
-    },
-  ]);
+  const [habits, setHabits] = useState([]);
   const [habitAddition, setHabitAddition] = useState(false);
   const [habit, setHabit] = useState({
     name: "",
@@ -42,6 +36,7 @@ export default function HabitTracker() {
       name: "",
       days: [false, false, false, false, false, false, false],
     });
+    setHabitAddition(false);
   };
 
   const renderNewHabit = () => {
