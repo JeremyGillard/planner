@@ -12,31 +12,6 @@ export default function HabitTrackerRow({ habit }) {
     setChecks(checks);
   }, [setChecks]);
 
-  useEffect(() => {
-    let finalState = true;
-    habit.days.forEach((day, i) => {
-      console.log(i, day !== checks[i]);
-      if (day !== checks[i]) {
-        finalState = false;
-      }
-    });
-    console.log("finalState", finalState);
-    setWeekCheck(finalState);
-    console.log("weekCheck", weekCheck);
-    console.log(habit.days);
-    console.log(checks);
-  }, [checks]);
-
-  const handleWeekCheck = () => {
-    habit.days.forEach((day, i) => {
-      console.log(i, day !== checks[i]);
-      if (day !== checks[i]) {
-        return false;
-      }
-    });
-    return true;
-  };
-
   const handleCheck = (i) => {
     const newChecks = [...checks];
     newChecks[i] = !newChecks[i];
@@ -67,9 +42,6 @@ export default function HabitTrackerRow({ habit }) {
         <h2>{habit.name}</h2>
       </div>
       {habit.days.map((day, i) => renderDay(day, i))}
-      <div>
-        <input type="checkbox" name="sunday" id="sunday" value={weekCheck} />
-      </div>
     </React.Fragment>
   );
 }

@@ -13,7 +13,6 @@ export default function HabitTrackerHeader({ days, handleHabitAddition }) {
           </div>
         );
       })}
-      <div></div>
     </React.Fragment>
   );
 }

@@ -14,6 +14,7 @@ export default function HabitTrackerAdder({
           type="text"
           value={habit.name}
           onChange={handleChangeHabitName}
+          onKeyPress={handleValidate}
         />
       </div>
       <div
@@ -44,9 +45,6 @@ export default function HabitTrackerAdder({
         className={habit.days[6] ? "colored" : ""}
         onClick={() => handleChangeHabitDays(6)}
       ></div>
-      <div>
-        <button onClick={handleValidate}>Validate</button>
-      </div>
     </React.Fragment>
   );
 }

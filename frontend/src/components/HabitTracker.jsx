@@ -46,13 +46,16 @@ export default function HabitTracker() {
     setHabit(newHabit);
   };
 
-  const handleValidate = () => {
-    setHabits([...habits, habit]);
-    setHabit({
-      name: "",
-      days: [false, false, false, false, false, false, false],
-    });
-    setHabitAddition(false);
+  const handleValidate = (e) => {
+    if (e.key === "Enter" && habit.days.filter((value) => value).length) {
+      console.log(habit.days.filter((value) => value));
+      setHabits([...habits, habit]);
+      setHabit({
+        name: "",
+        days: [false, false, false, false, false, false, false],
+      });
+      setHabitAddition(false);
+    }
   };
 
   const renderNewHabit = () => {
