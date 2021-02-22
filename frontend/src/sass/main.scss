@@ -18,3 +18,13 @@ body {
   font-size: 0.625rem;
   line-height: 1;
 }
+
+.app {
+  display: flex;
+  height: 100vh;
+  align-items: center;
+  justify-content: center;
+  background-color: #eee;
+}
+
+@import './day.scss';
