@@ -23,8 +23,8 @@ In a first step, I will focus on desktop web view.
 
 Because I'm a trained developer and not a designer, I intend to draw inspiration from some of the diary templates offered on dribble, not forgetting to mention the designers of course.
 
-[Vladimir Gruev - Agenda:Calendar](https://dribbble.com/shots/5496606-Agenda-Calendar)
-[Viktor Nikitin - Collon Calendar](https://dribbble.com/shots/14243726-Collon-Calendar)
+[Vladimir Gruev - Agenda:Calendar](https://dribbble.com/shots/5496606-Agenda-Calendar)  
+[Viktor Nikitin - Collon Calendar](https://dribbble.com/shots/14243726-Collon-Calendar)  
 [UGEM - Calendar for scheduling consultations](https://dribbble.com/shots/14376775-Calendar-for-scheduling-consultations)
 
 ## Project Structure
