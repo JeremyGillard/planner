@@ -1,37 +1,37 @@
 import React from 'react';
 import dayjs from 'dayjs';
 
-const date = new Date().toISOString();
-
-const day = {
-  date: dayjs(date),
-  objectives: [
-    {
-      title: 'Improve React skills',
-      category: 'Learning',
-      from: '9:30',
-      to: '12:45',
-    },
-    {
-      title: 'CSS grid + Sass architecture',
-      category: 'Learning',
-      from: '13:45',
-      to: '15:00',
-    },
-    {
-      title: 'Imporve my portfolio',
-      category: 'Work',
-      from: '15:15',
-      to: '17:45',
-    },
-  ],
-};
-
 function getDelimiterColor(i) {
   return ['palegreen', 'sandybrown', 'mediumturquoise'][i];
 }
 
-export default function Day() {
+export default function Day({ pickedDate }) {
+  const date = pickedDate;
+
+  const day = {
+    date: dayjs(date),
+    objectives: [
+      {
+        title: 'Improve React skills',
+        category: 'Learning',
+        from: '9:30',
+        to: '12:45',
+      },
+      {
+        title: 'CSS grid + Sass architecture',
+        category: 'Learning',
+        from: '13:45',
+        to: '15:00',
+      },
+      {
+        title: 'Improve my portfolio',
+        category: 'Work',
+        from: '15:15',
+        to: '17:45',
+      },
+    ],
+  };
+
   return (
     <div className="day">
       <header>
