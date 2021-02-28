@@ -38,31 +38,9 @@ export default function App() {
 
   useEffect(() => {
     const words = getWords();
-    const word = words.pop();
     setLearningWords(words);
-    setCurrentWord(word);
+    setCurrentWord(words[0]);
   }, []);
-
-  useEffect(() => {
-    if (
-      learningWords.length === 0 &&
-      currentWord === '' &&
-      reviewingWords !== 0 &&
-      masteredWords.length !== 0
-    ) {
-      const words = [...reviewingWords];
-      const word = words.pop();
-      setReviewingWords(words);
-      setCurrentWord(word);
-    }
-  }, [
-    currentWord,
-    setCurrentWord,
-    learningWords,
-    reviewingWords,
-    setReviewingWords,
-    masteredWords,
-  ]);
 
   const handleKeyPressed = (e) => {
     if (e.key === 'Enter') {
@@ -71,21 +49,42 @@ export default function App() {
   };
 
   const handleResponse = () => {
-    if (answer === currentWord.translation) {
-      const words = [...learningWords];
-      const word = words.pop();
-      setLearningWords(words);
-      setMasteredWords([...masteredWords, currentWord]);
-      setCurrentWord(word);
+    if (learningWords.length !== 0) {
+      if (answer === currentWord.translation) {
+        const words = [...learningWords];
+        words.shift();
+        setLearningWords(words);
+        setMasteredWords([...masteredWords, currentWord]);
+        setCurrentWord(words[0]);
+      } else {
+        const words = [...learningWords];
+        words.shift();
+        setLearningWords(words);
+        setReviewingWords([...reviewingWords, currentWord]);
+        setCurrentWord(words[0]);
+      }
     } else {
-      const words = [...learningWords];
-      const word = words.pop();
-      setLearningWords(words);
-      setReviewingWords([...reviewingWords, currentWord]);
-      setCurrentWord(word);
+      if (answer === currentWord.translation) {
+        const words = [...reviewingWords];
+        words.shift();
+        setReviewingWords(words);
+        setMasteredWords([...masteredWords, currentWord]);
+        setCurrentWord(words[0]);
+      } else {
+        const words = [...reviewingWords];
+        words.shift();
+        setReviewingWords([...words, currentWord]);
+        setCurrentWord(words[0]);
+      }
     }
     setAnswer('');
   };
+
+  useEffect(() => {
+    if (learningWords.length === 0 && reviewingWords.length !== 0) {
+      setCurrentWord(reviewingWords[0]);
+    }
+  }, [learningWords, reviewingWords, setCurrentWord]);
 
   const renderedLearningWord = currentWord
     ? currentWord.word
@@ -98,9 +97,7 @@ export default function App() {
           <div className="indicator">
             <div className="indicator__tablet indicator__tablet--blue"></div>
             <p className="indicator__title">Learning</p>
-            <p className="indicator__number">
-              {learningWords.length ? learningWords.length + 1 : 0}
-            </p>
+            <p className="indicator__number">{learningWords.length}</p>
           </div>
           <div className="indicator">
             <div className="indicator__tablet indicator__tablet--grey"></div>
