@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import FlashCard from './FlashCard';
 
 const words = [
   {
@@ -35,6 +36,7 @@ export default function App() {
   const [masteredWords, setMasteredWords] = useState([]);
   const [currentWord, setCurrentWord] = useState('');
   const [answer, setAnswer] = useState('');
+  const [wordStatus, setWordStatus] = useState('learning');
 
   useEffect(() => {
     const words = getWords();
@@ -82,13 +84,20 @@ export default function App() {
 
   useEffect(() => {
     if (learningWords.length === 0 && reviewingWords.length !== 0) {
+      setWordStatus('reviewing');
       setCurrentWord(reviewingWords[0]);
+    } else if (
+      learningWords.length === 0 &&
+      reviewingWords.length === 0 &&
+      masteredWords.length !== 0
+    ) {
+      setWordStatus('mastered');
     }
-  }, [learningWords, reviewingWords, setCurrentWord]);
+  }, [learningWords, reviewingWords, masteredWords, setCurrentWord]);
 
   const renderedLearningWord = currentWord
     ? currentWord.word
-    : 'No more words today';
+    : masteredWords[0].word;
 
   return (
     <div className="app">
@@ -110,16 +119,13 @@ export default function App() {
             <p className="indicator__number">{masteredWords.length}</p>
           </div>
         </div>
-        <section className="flashcard flashcard--blue">
-          <p className="flashcard__word">{renderedLearningWord}</p>
-          <input
-            type="text"
-            className="flashcard__translation"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-            onKeyPress={handleKeyPressed}
-          />
-        </section>
+        <FlashCard
+          wordStatus={wordStatus}
+          renderedLearningWord={renderedLearningWord}
+          answer={answer}
+          setAnswer={setAnswer}
+          handleKeyPressed={handleKeyPressed}
+        />
         <div className="actions">
           <button className="actions__addition">
             <i className="fa fa-plus" aria-hidden="true"></i>
